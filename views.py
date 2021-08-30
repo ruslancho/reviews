@@ -7,4 +7,4 @@ def index(request):
     print(full_path)
     with open("reviews.txt", "a") as f:
         f.write(full_path[0] + ':' + full_path[1] + '\n')
-    return HttpResponse("<h3>Дякуємо за відгук!</h3>")
+    return HttpResponse("<img src='image.jpg'>")
