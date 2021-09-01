@@ -5,7 +5,7 @@ import pyodbc
 def index(request):
     full_path = request.get_full_path().split('/')[2].split('_')
     print(full_path)
-    server = 'tcp:KAU-LT-000475'
+    server = 'tcp:127.0.0.1'
     database = 'reviews'
     username = 'sa'
     password = '6nY69p9ULm'
