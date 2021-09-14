@@ -5,13 +5,15 @@ import pyodbc
 def index(request):
     full_path = request.get_full_path().split('/')[2].split('_')
     print(full_path)
-    server = 'tcp:127.0.0.1'
+    with open("reviews.txt", "a") as f:
+        f.write(full_path[0] + ':' + full_path[1] + '\n')
+    server = 'tcp:192.168.102.33'
     database = 'reviews'
     username = 'sa'
     password = '6nY69p9ULm'
-    cnxn = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-    cursor = cnxn.cursor()
-    cursor.close()
-    with open("reviews.txt", "a") as f:
-        f.write(full_path[0] + ':' + full_path[1] + '\n')
-    return HttpResponse("<img src='image.jpg'>")
+
+
+    with pyodbc.connect('DRIVER='+'{ODBC Driver 17 for SQL Server}'+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
+        with conn.cursor() as cursor:
+            cursor.execute("INSERT INTO reviews (request_number ,rating) VALUES ('IR10055', '5')")
+    return HttpResponse("<img src='https://www.imgonline.com.ua/examples/bee-on-daisy.jpg'>")
